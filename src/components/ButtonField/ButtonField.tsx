@@ -26,6 +26,7 @@ function ButtonField(props: ButtonFieldProps) {
                              activeButton={props.valueOfButtonReset && props.valueOfButtonReset}
                              title={'reset'}/>
 
+
         </div>
     )
 
