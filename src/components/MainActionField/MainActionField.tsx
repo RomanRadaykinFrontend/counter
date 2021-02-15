@@ -1,29 +1,44 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import CountField from "../CountField/CountField";
 import ButtonField from "../ButtonField/ButtonField";
 import ButtonComponent from "../ButtonComponent/ButtonComponent";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "../store/store";
+import {incrementButtonAC, resetButtonActionAC, setButtonActionAC, StateType} from "../store/counterReducer";
 
 type MainActionFieldType = {
-    count: number
-    maxValue: number
     valueErrorButtonInput: boolean
-    incrementButton: () => void
-    resetButton: () => void
     valueOfButtonReset: boolean
     valueOfButtonIncrement: boolean
-    setButton: () => void
 }
 
 
-function MainActionField(props: MainActionFieldType){
-    return(
+function MainActionField(props: MainActionFieldType) {
+
+    const state = useSelector<AppRootStateType, StateType>(state => state.counter);
+    const dispatch = useDispatch();
+
+    function incrementButton() {
+        dispatch(incrementButtonAC())
+    }
+
+    function resetButton() {
+        dispatch(resetButtonActionAC())
+    }
+
+    function setButton() {
+        dispatch(setButtonActionAC())
+    }
+
+
+    return (
         <div>
-            <CountField count={props.count} maxCount={props.maxValue}/>
-            <ButtonField incrementButton={props.incrementButton}
-                                                 resetButton={props.resetButton}
-                                                 valueOfButtonReset={props.valueOfButtonReset}
-                                                 valueOfButtonIncrement={props.valueOfButtonIncrement}/>
-            <ButtonComponent functionButton={props.setButton} title={'set'} activeButton={props.valueErrorButtonInput} />
+            <CountField count={state.count} maxCount={state.maxValue}/>
+            <ButtonField incrementButton={incrementButton}
+                         resetButton={resetButton}
+                         valueOfButtonReset={props.valueOfButtonReset}
+                         valueOfButtonIncrement={props.valueOfButtonIncrement}/>
+            <ButtonComponent functionButton={setButton} title={'set'} activeButton={props.valueErrorButtonInput}/>
         </div>
     )
 }
