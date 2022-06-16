@@ -26,6 +26,7 @@ function App() {
                                                          valueOfButtonIncrement={!(state.count >= 0) || state.count === state.maxValue}/>}
 
             </div>
+            <div>aaaaasdasdasdasdasdasdadasda</div>
 
         </div>
     );
